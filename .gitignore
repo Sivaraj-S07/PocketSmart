@@ -1,0 +1,16 @@
+# secrets & local data  (commit the .env.example files, never the .env files)
+.env
+*.sqlite3
+*.db
+# python
+__pycache__/
+*.pyc
+.venv/
+venv/
+.pytest_cache/
+# editors / OS
+.vscode/
+.idea/
+.DS_Store
+# vercel
+.vercel/

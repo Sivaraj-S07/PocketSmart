@@ -1,0 +1,32 @@
+# Render Blueprint: one FastAPI web service.  The database is Supabase PostgreSQL
+# (no Render database any more), so DATABASE_URL is entered in the dashboard.
+# Render dashboard -> New -> Blueprint -> pick this repository.
+services:
+  - type: web
+    name: pocketsmart-ai
+    runtime: python
+    plan: free            # free web services sleep after 15 min idle
+    buildCommand: pip install -r backend/requirements.txt
+    # The backend serves the frontend/ folder next to it, so run from backend/.
+    startCommand: cd backend && uvicorn app:app --host 0.0.0.0 --port $PORT --proxy-headers --forwarded-allow-ips="*"
+    healthCheckPath: /startup
+    envVars:
+      - key: ENVIRONMENT
+        value: production
+      - key: PYTHON_VERSION
+        value: 3.12.3
+      - key: SECRET_KEY
+        generateValue: true
+      # Supabase -> Connect -> Session pooler URI (IPv4-compatible; Render free is IPv4-only).
+      - key: DATABASE_URL
+        sync: false
+      - key: DB_AUTO_CREATE
+        value: "false"
+      - key: SUPABASE_URL
+        sync: false
+      - key: SUPABASE_PUBLISHABLE_KEY
+        sync: false
+      - key: GEMINI_API_KEY
+        sync: false       # leave blank for offline mode
+      - key: CORS_ORIGINS
+        value: https://pocketsmart-ai-two.vercel.app
