@@ -26,4 +26,4 @@ services:
         sync: false       # leave blank for offline mode
       # Only needed if the frontend is hosted on a DIFFERENT origin (e.g. Vercel without the /api rewrite).
       - key: CORS_ORIGINS
-        value: https://pocketsmart-ai-theta.vercel.app
+        value: https://pocketsmart-ai-two.vercel.app
