@@ -1,0 +1,29 @@
+# Render Blueprint: ONE Node web service that serves both the API and the built React app.
+# The database is Supabase PostgreSQL, so DATABASE_URL is entered in the Render dashboard.
+# Render dashboard -> New -> Blueprint -> pick this repository.
+services:
+  - type: web
+    name: pocketsmart-ai
+    runtime: node
+    plan: free            # free web services sleep after 15 min idle (see .github/workflows/keep-alive.yml)
+    # Builds the React app into frontend/dist, which the Express server then serves.
+    buildCommand: npm run render:build
+    startCommand: npm start
+    healthCheckPath: /health
+    envVars:
+      - key: ENVIRONMENT
+        value: production
+      - key: NODE_VERSION
+        value: 22
+      - key: SECRET_KEY
+        generateValue: true
+      # Supabase -> Connect -> Session pooler URI (IPv4-compatible; Render free is IPv4-only).
+      - key: DATABASE_URL
+        sync: false
+      - key: DB_AUTO_CREATE
+        value: "false"
+      - key: GEMINI_API_KEY
+        sync: false       # leave blank for offline mode
+      # Only needed if the frontend is hosted on a DIFFERENT origin (e.g. Vercel without the /api rewrite).
+      - key: CORS_ORIGINS
+        value: https://pocketsmart-ai-theta.vercel.app

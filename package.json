@@ -1,0 +1,20 @@
+{
+  "name": "pocketsmart",
+  "version": "2.0.0",
+  "private": true,
+  "description": "PocketSmart AI - React + Express + Supabase budget planner",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "install:all": "npm install && npm install --prefix backend && npm install --prefix frontend",
+    "dev": "concurrently -k -n api,web -c cyan,magenta \"npm run dev --prefix backend\" \"npm run dev --prefix frontend\"",
+    "build": "npm run build --prefix frontend",
+    "start": "npm start --prefix backend",
+    "test": "npm test --prefix backend && npm test --prefix frontend",
+    "render:build": "npm install --include=dev --prefix frontend && npm run build --prefix frontend && npm install --omit=dev --prefix backend"
+  },
+  "devDependencies": {
+    "concurrently": "^10.0.6"
+  }
+}

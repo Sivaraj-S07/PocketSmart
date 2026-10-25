@@ -1,0 +1,4 @@
+# Netlify: proxy the API to the Render backend (same origin => the login cookie just works),
+# and let React Router handle every other path.
+/api/*  https://pocketsmartai-7n55.onrender.com/api/:splat  200
+/*      /index.html                                          200

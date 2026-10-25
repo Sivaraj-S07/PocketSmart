@@ -1,0 +1,17 @@
+# secrets & local data  (commit the .env.example files, never the .env files)
+.env
+.env.local
+*.sqlite3
+*.db
+# node
+node_modules/
+frontend/dist/
+npm-debug.log*
+coverage/
+# editors / OS
+.vscode/
+.idea/
+.DS_Store
+# hosting
+.vercel/
+.netlify/
